@@ -17,20 +17,28 @@ public class Player {
     void equipArmor(Armor armor) {
         this.armor = armor;
     }
-
-     double getHealth() {
-        return this.health = this.health + this.armor.defence;
-    }
     
     void attackOpponent(Player opponent) {
-        opponent.health = opponent.health - this.weapon.attack;
-        System.out.println(opponent.name + " gots damage : "+ this.weapon.attack + "\n");
-        opponent.showDetail();
+       System.out.println(this.name + " attacking " + opponent.name + "\n");
+       defence(opponent);
+       
     }
 
-    void showDetail() {
-        System.out.println("Player name : "+this.name + "\n" +
-        "Health : "+this.getHealth() + "%");
-        this.weapon.display();
+    void defence(Player opponent) {
+        
+        if(this.weapon.attack < opponent.armor.defence) {
+            opponent.health = opponent.health - (this.weapon.attack * 0.35);
+            System.out.println(opponent.name + " get's damage "+ (this.weapon.attack * 0.35) + " from " + this.name);
+            showDetail(opponent);
+        } else {
+            opponent.health = opponent.health - this.weapon.attack;
+            showDetail(opponent);
+            System.out.println(opponent.name + " get's damage "+ this.weapon.attack + " from " + this.name);
+    }
+    }
+
+    void showDetail(Player opponent) {
+        System.out.println("Player name : "+ opponent.name + "\n" +
+        "Health : "+opponent.health + "%" + "\n");
     }
 }
